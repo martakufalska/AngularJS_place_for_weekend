@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="scripts/tableLoading.js"></script>
+    
+    <link href= "styles/modalBox.css" rel= "stylesheet"  type= "text/css" >
+
+    <title>Place for weekend</title>
+</head>
+<body ng-app="placeForWeekend" ng-controller="table">
+    <h1>Choose the best place for weekend</h1>
+
+    <!-- Trigger/Open The Modal -->
+    <button id="addCity" ng-click="display={display:'block'}">Add city</button>
+    <table  id="cityTable">
+        <tr>
+            <th>Capital</th>
+            <th>Temperature (°C)</th>
+            <th>Weather condition</th>
+            <th>Going to visit</th>
+            <th>Visited</th>
+        </tr>
+        <tr data-ng-repeat="city in citiesParam | orderBy : '-temperature'">
+            <td>{{city.name}}</td>
+            <td>{{city.temperature}}</td>
+            <td>{{city.condition}}</td>
+            <td>
+                <input type="checkbox" name="going-to-visit" id="">
+            </td>
+            <td> 
+                <input type="checkbox" name="visited" id="">
+            </td>
+        </tr>
+    </table>
+
+<!-- The Modal -->
+<div id="modal" class="modal" ng-style="display">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <label for="city">Please enter city name:</label>
+    <input type="text" name="city" ng-model="newCity">
+    <button ng-click="modalBox()">Add</button>
+    <span id="close" ng-click="display={display:'none'}">&times;</span>
+  </div>
+
+</div>
+
+</body>
+</html>
