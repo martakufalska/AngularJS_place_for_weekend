@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="scripts/tableLoading.js"></script>
+    <script src="scripts/changingRowColor.js"></script>
     
     <link href= "styles/modalBox.css" rel= "stylesheet"  type= "text/css" >
 
@@ -17,6 +18,7 @@
 
     <!-- Trigger/Open The Modal -->
     <button id="addCity" ng-click="display={display:'block'}">Add city</button>
+    <button id="default" ng-click="refreshTable()">Default parameters</button>
     <table  id="cityTable">
         <tr>
             <th>Capital</th>
@@ -25,30 +27,30 @@
             <th>Going to visit</th>
             <th>Visited</th>
         </tr>
-        <tr data-ng-repeat="city in citiesParam | orderBy : '-temperature'">
+        <tr data-ng-repeat="city in citiesParam | orderBy : '-temperature'" id={{$index}}>
             <td>{{city.name}}</td>
             <td>{{city.temperature}}</td>
             <td>{{city.condition}}</td>
             <td>
-                <input type="checkbox" name="going-to-visit" id="">
+                <input type="checkbox" name="going-to-visit" onchange="wantToVisite(this)" ng-model="ff">
             </td>
             <td> 
-                <input type="checkbox" name="visited" id="">
+                <input type="checkbox" name="visited" onchange="visited(this)" ng-model="d">
+                <label for="visited">Visit</label>
             </td>
         </tr>
     </table>
 
 <!-- The Modal -->
 <div id="modal" class="modal" ng-style="display">
-
   <!-- Modal content -->
   <div class="modal-content">
     <label for="city">Please enter city name:</label>
     <input type="text" name="city" ng-model="newCity">
     <button ng-click="modalBox()">Add</button>
     <span id="close" ng-click="display={display:'none'}">&times;</span>
+    <p id="error" ng-bind="message"></p>
   </div>
-
 </div>
 
 </body>
